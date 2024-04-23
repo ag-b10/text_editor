@@ -20,6 +20,7 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
     h1 {
         margin-bottom: 20px;
@@ -37,8 +38,12 @@
         outline: none;
         background-color: transparent;
         color: #ffffff;
+        transition: border-color 0.3s ease, color 0.3s ease;
     }
-    button {
+    #editor.inverted {
+        filter: invert(1);
+    }
+    button, .theme-toggle {
         padding: 10px 20px;
         background-color: #ffffff;
         color: #000000;
@@ -49,21 +54,31 @@
         font-weight: 600;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
-    button:hover {
+    button:hover, .theme-toggle:hover {
         background-color: #000000;
         color: #ffffff;
+    }
+    .button-container {
+        display: flex;
+        gap: 10px;
     }
 </style>
 </head>
 <body>
 <h1>Simple Text Editor</h1>
 <div id="editor" contenteditable="true"></div>
-<button id="saveButton">Save Text</button>
+<div class="button-container">
+    <button id="saveButton">Save Text</button>
+    <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
+</div>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const editor = document.getElementById('editor');
         const saveButton = document.getElementById('saveButton');
+        const themeToggle = document.getElementById('themeToggle');
         const savedText = localStorage.getItem('savedText');
+        let isDarkTheme = true;
+
         if (savedText) {
             editor.innerText = savedText;
         }
@@ -86,6 +101,34 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         });
+
+        themeToggle.addEventListener('click', function() {
+            isDarkTheme = !isDarkTheme;
+            updateTheme();
+        });
+
+        function updateTheme() {
+            if (isDarkTheme) {
+                document.body.style.backgroundColor = '#000000';
+                document.body.style.color = '#ffffff';
+                saveButton.style.backgroundColor = '#ffffff';
+                saveButton.style.color = '#000000';
+                themeToggle.style.backgroundColor = '#ffffff';
+                themeToggle.style.color = '#000000';
+                editor.classList.remove('inverted');
+            } else {
+                document.body.style.backgroundColor = '#ffffff';
+                document.body.style.color = '#000000';
+                saveButton.style.backgroundColor = '#000000';
+                saveButton.style.color = '#ffffff';
+                themeToggle.style.backgroundColor = '#000000';
+                themeToggle.style.color = '#ffffff';
+                editor.classList.add('inverted');
+            }
+        }
+
+        // Initialize theme
+        updateTheme();
     });
 </script>
 </body>
