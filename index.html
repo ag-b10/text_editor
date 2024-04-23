@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minimalistic Notepad</title>
+<title>Text Editor</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
     body, button, input, select, textarea {
@@ -38,7 +38,7 @@
         outline: none;
         background-color: transparent;
         color: #ffffff;
-        transition: border-color 0.3s ease, color 0.3s ease;
+        overflow-y: auto; /* Add scrollbar when text overflows vertically */
     }
     #editor.inverted {
         filter: invert(1);
@@ -65,10 +65,10 @@
 </style>
 </head>
 <body>
-<h1>Minimalistic Notepad</h1>
+<h1>Text Editor</h1>
 <div id="editor" contenteditable="true"></div>
 <div class="button-container">
-    <button id="saveButton">Save to Device</button>
+    <button id="saveButton">Save Text</button>
     <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
 </div>
 <script>
