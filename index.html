@@ -4,14 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simple Text Editor</title>
-<link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-     @font-face {
-        font-family: mainFont;
-        src: url(proximaNovaRegular.otf);
+    body, button, input, select, textarea {
+        font-family: 'Montserrat', Arial, sans-serif;
     }
     body {
-        font-family: 'Proxima Nova', Arial, sans-serif;
         font-weight: 400;
         background-color: #000000;
         color: #ffffff;
@@ -25,6 +23,7 @@
     }
     h1 {
         margin-bottom: 20px;
+        font-weight: 700;
     }
     #editor {
         width: 90%;
@@ -47,6 +46,7 @@
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
+        font-weight: 600;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
     button:hover {
@@ -56,7 +56,7 @@
 </style>
 </head>
 <body>
-<h1>Text Editor</h1>
+<h1>Simple Text Editor</h1>
 <div id="editor" contenteditable="true"></div>
 <button id="saveButton">Save Text</button>
 <script>
