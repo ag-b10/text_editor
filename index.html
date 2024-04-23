@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Editor</title>
+<link href="https://fonts.googleapis.com/css2?family=Proxima+Nova:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Proxima Nova', Arial, sans-serif;
+        font-weight: 400;
+        background-color: #000000;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    h1 {
+        margin-bottom: 20px;
+    }
+    #editor {
+        width: 90%;
+        height: 300px;
+        margin-bottom: 20px;
+        border: 2px solid #ffffff;
+        padding: 10px;
+        font-size: 16px;
+        resize: none;
+        border-radius: 15px;
+        outline: none;
+        background-color: transparent;
+        color: #ffffff;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #ffffff;
+        color: #000000;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    button:hover {
+        background-color: #000000;
+        color: #ffffff;
+    }
+</style>
+</head>
+<body>
+<h1>Text Editor</h1>
+<div id="editor" contenteditable="true"></div>
+<button id="saveButton">Save Text</button>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const editor = document.getElementById('editor');
+        const saveButton = document.getElementById('saveButton');
+        const savedText = localStorage.getItem('savedText');
+        if (savedText) {
+            editor.innerText = savedText;
+        }
+
+        editor.addEventListener('input', function() {
+            const textToSave = editor.innerText;
+            localStorage.setItem('savedText', textToSave);
+        });
+
+        saveButton.addEventListener('click', function() {
+            const textToSave = editor.innerText;
+            // Create a link to download the text as a .txt file
+            const blob = new Blob([textToSave], {type: 'text/plain'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'text_file.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+    });
+</script>
+</body>
+</html>
